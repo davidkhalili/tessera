@@ -2,7 +2,15 @@
 [![codecov](https://codecov.io/gh/ConsenSys/tessera/branch/master/graph/badge.svg?token=XMRVPC5FLQ)](https://codecov.io/gh/ConsenSys/tessera)
 ![Docker Pulls](https://img.shields.io/docker/pulls/quorumengineering/tessera)
 
-# <img src="https://raw.githubusercontent.com/consensys/tessera/master/tessera-logo.png" width="150" height="36"/>
+# <img src="https://raw.githubusercontent.com/consensys/tessera/master/tessera-logo.png" width="150" height="36"/> 
+
+[DEPRECATED]
+
+⚠️ Project Deprecation ⚠️
+
+This repo will be archived on June 1, 2026.
+
+Tessera is no longer supported. For more information on this decision and alternatives, refer to this [blog post](https://www.lfdecentralizedtrust.org/blog/sunsetting-tessera-and-simplifying-hyperledger-besu).
 
 > __Important: Breaking change__ <br/>Users running on [21.10.0](https://github.com/ConsenSys/tessera/releases/tag/tessera-21.10.0) and previous versions will need to perform a database upgrade to work with the latest version of Tessera.<li> For non-H2 users, existing database schema will need to be updated. Execute the appropriate [alter script](ddls/add-codec) provided.</li> <li> For H2 users, a complete database migration is required before running the [alter script](ddls/add-codec). This is due to the considerable number of changes between version 1.4.200 and version 2.0.202 onwards. See more details from [H2 release](https://github.com/h2database/h2database/releases/tag/version-2.0.202) and their recommended [upgrade process](https://h2database.com/html/tutorial.html#upgrade_backup_restore). Example migration scripts can be found [here](ddls/scripts/h2-upgrade.sh)
 
@@ -224,9 +232,3 @@ At this point you would be able to disclose publicly your finding.
 The best way to receive security announcements is to subscribe to the Quorum-announce mailing list/channel. Any messages pertaining to a security issue will be prefixed with [security].
 
 Comments on This Policy If you have any suggestions to improve this policy, please send an email to info@goquorum.com for discussion.
-
-## Contributing
-Tessera is built open source and we welcome external contribution on features and enhancements. Upon review you will be required to complete a Contributor License Agreement (CLA) before we are able to merge. If you have any questions about the contribution process, please feel free to send an email to [info@goquorum.com](mailto:info@goquorum.com). Please see the [Contributors guide](.github/CONTRIBUTING.md) for more information about the process.
-
-# Getting Help
-Stuck at some step? Please join our  <a href="https://discord.com/channels/697535391594446898/905421497416433704" target="_blank" rel="noopener">community</a> for support.
