@@ -23,7 +23,7 @@ jobs:
       full-version: ${{ steps.version.outputs.full-version }}
       minor-version: ${{ steps.version.outputs.minor-version }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
       - name: Get release version
         id: version
         run: |
@@ -54,8 +54,8 @@ jobs:
     needs: [ check-version ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+      - uses: actions/setup-java@b6e674f4b717d7b0ae3baee0fbe79f498905dfde # v1.4.4
         with:
           java-version: 17
       - run: ./gradlew dependencyCheckAnalyze -x test
@@ -63,9 +63,9 @@ jobs:
     needs: [ check-dependencies, check-version ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
       - name: Set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@b6e674f4b717d7b0ae3baee0fbe79f498905dfde # v1.4.4
         with:
           java-version: 17
       - name: Release
@@ -99,37 +99,37 @@ jobs:
 
           echo ::set-output name=branch-name::release-$now
       - name: Create PR to update development version
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@18f7dc018cc2cd597073088f7c7591b9d1c02672 # v3.14.0
         with:
           branch: ${{ steps.release.outputs.branch-name }}
           title: Update development version
           body: Triggered by release https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
       - name: Upload tessera dists
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2 # v2.3.1
         if: success()
         with:
           name: tessera-dists
           path: tessera-dist/build/distributions/
       - name: Upload enclave dists
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2 # v2.3.1
         if: success()
         with:
           name: enclave-dists
           path: enclave/enclave-jaxrs/build/distributions/
       - name: Upload azure-key-vault dists
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2 # v2.3.1
         if: success()
         with:
           name: azure-key-vault-dists
           path: key-vault/azure-key-vault/build/distributions/
       - name: Upload aws-key-vault dists
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2 # v2.3.1
         if: success()
         with:
           name: aws-key-vault-dists
           path: key-vault/aws-key-vault/build/distributions/
       - name: Upload hashicorp-key-vault dists
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2 # v2.3.1
         if: success()
         with:
           name: hashicorp-key-vault-dists
@@ -140,39 +140,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code from SCM
-        uses: actions/checkout@v2
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
       - name: Download tessera dists
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@cbed621e49e4c01b044d60f6c80ea4ed6328b281 # v2.1.1
         with:
           name: tessera-dists
           path: tessera-dist/build/distributions/
       - name: Download enclave dists
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@cbed621e49e4c01b044d60f6c80ea4ed6328b281 # v2.1.1
         with:
           name: enclave-dists
           path: enclave/enclave-jaxrs/build/distributions/
       - name: Download azure-key-vault dists
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@cbed621e49e4c01b044d60f6c80ea4ed6328b281 # v2.1.1
         if: success()
         with:
           name: azure-key-vault-dists
           path: key-vault/azure-key-vault/build/distributions/
       - name: Download aws-key-vault dists
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@cbed621e49e4c01b044d60f6c80ea4ed6328b281 # v2.1.1
         if: success()
         with:
           name: aws-key-vault-dists
           path: key-vault/aws-key-vault/build/distributions/
       - name: Download hashicorp-key-vault dists
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@cbed621e49e4c01b044d60f6c80ea4ed6328b281 # v2.1.1
         if: success()
         with:
           name: hashicorp-key-vault-dists
           path: key-vault/hashicorp-key-vault/build/distributions/
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # v1.7.0
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@dd4fa0671be5250ee6f50aedf4cb05514abda2c7 # v1.14.1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
@@ -181,7 +181,7 @@ jobs:
         run: |
           echo "::set-output name=now::$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
       - name: Build and push standalone tessera images
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a # v2.10.0
         with:
           tags: |
             ${{ env.TESSERA_DOCKER_IMAGE_NAME }}:latest
@@ -196,7 +196,7 @@ jobs:
           # context must be explicitly provided to prevent docker/build-push-action checking out the repo again and deleting the downloaded artifacts
           context: .
       - name: Build and push tessera+azure images
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a # v2.10.0
         with:
           tags: |
             ${{ env.TESSERA_DOCKER_IMAGE_NAME }}:azure-latest
@@ -211,7 +211,7 @@ jobs:
           # context must be explicitly provided to prevent docker/build-push-action checking out the repo again and deleting the downloaded artifacts
           context: .
       - name: Build and push tessera+aws images
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a # v2.10.0
         with:
           tags: |
             ${{ env.TESSERA_DOCKER_IMAGE_NAME }}:aws-latest
@@ -226,7 +226,7 @@ jobs:
           # context must be explicitly provided to prevent docker/build-push-action checking out the repo again and deleting the downloaded artifacts
           context: .
       - name: Build and push tessera+hashicorp images
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a # v2.10.0
         with:
           tags: |
             ${{ env.TESSERA_DOCKER_IMAGE_NAME }}:hashicorp-latest
@@ -241,7 +241,7 @@ jobs:
           # context must be explicitly provided to prevent docker/build-push-action checking out the repo again and deleting the downloaded artifacts
           context: .
       - name: Build and push standalone enclave images
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a # v2.10.0
         with:
           tags: |
             ${{ env.TESSERA_DOCKER_IMAGE_NAME }}:enclave-latest
